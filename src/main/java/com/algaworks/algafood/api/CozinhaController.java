@@ -43,10 +43,10 @@ public class CozinhaController {
 		return cozinhaRepository.listar();
 	}
 	
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public CozinhasXmlWrapper listarXml(){
-		return new CozinhasXmlWrapper(cozinhaRepository.listar());
-	}
+	//@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	//public CozinhasXmlWrapper listarXml(){
+	//	return new CozinhasXmlWrapper(cozinhaRepository.listar());
+	//}
 	
 	//@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/{cozinhaId}")
