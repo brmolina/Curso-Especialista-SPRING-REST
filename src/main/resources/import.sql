@@ -11,9 +11,14 @@ insert into forma_pagamento (descricao) values ('cartao')
 
 insert into estado (id, nome) values (1, 'Sao Paulo')
 insert into estado (id, nome) values (2, 'Rio de Janeiro')
+insert into estado (id, nome) values (3, 'Minas Gerais')
+insert into estado (id, nome) values (4, 'Goias')
 
 insert into cidade (nome, estado_id) values ('Campinas', 1)
 insert into cidade (nome, estado_id) values ('Ribeirao Preto', 1)
 
 insert into cidade (nome, estado_id) values ('Cabo Frio', 2)
 insert into cidade (nome, estado_id) values ('Paraty', 2)
+
+insert into cidade (nome) values ('Belo Horizonte')
+insert into cidade (nome) values ('Rio Quente')
