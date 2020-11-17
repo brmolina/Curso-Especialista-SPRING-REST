@@ -22,7 +22,7 @@ public class ExclusaoFormaPagamentoMain {
 		FormaPagamento formaPagamento = new FormaPagamento();
 		formaPagamento.setId(1L);
 		
-		cadastroFormaPagamento.remover(formaPagamento);
+		cadastroFormaPagamento.remover(formaPagamento.getId());
 	
 	}
 }
