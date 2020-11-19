@@ -27,7 +27,7 @@ public class CadastroCidadeService {
 		if(!estado.isPresent()) {
 			throw new EntidadeNaoEncontradaException(String.format("Estado de id %d não encontrado", estadoId));
 		}
-		//String nomeEstado = estado.getNome();
+		
 		try {
 			return cidadeRepository.save(cidade);
 			
