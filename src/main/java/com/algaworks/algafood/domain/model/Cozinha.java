@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.sun.xml.txw2.annotation.XmlElement;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

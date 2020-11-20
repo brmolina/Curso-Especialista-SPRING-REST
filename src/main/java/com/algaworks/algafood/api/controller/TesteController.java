@@ -31,12 +31,14 @@ public class TesteController {
 		  
 		  
 	  }
-		/*
-		 * @GetMapping("/restaurantes/por-taxa-frete") public List<Restaurante>
-		 * restaurantesPorTaxaFrete (BigDecimal taxaInicial, BigDecimal taxaFinal){
-		 * return restauranteRepository.findByTaxaFreteBetween(taxaInicial, taxaFinal);
-		 * }
-		 */
+		
+	@GetMapping("/restaurantes/por-taxa-frete")
+	public List<Restaurante>restaurantesPorNomeFrete (String nome, 
+			BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal){
+		
+		return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
+		}
+		 
 	  
 	  
 }
