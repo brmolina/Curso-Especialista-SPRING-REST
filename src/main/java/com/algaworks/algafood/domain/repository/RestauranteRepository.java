@@ -14,7 +14,7 @@ import com.algaworks.algafood.domain.model.Restaurante;
 
 @Repository
 public interface RestauranteRepository 
-extends JpaRepository<Restaurante, Long>, RestautanteRepositoryQueries, JpaSpecificationExecutor<Restaurante>{
+extends CustomJpaRepository<Restaurante, Long>, RestautanteRepositoryQueries, JpaSpecificationExecutor<Restaurante>{
 	
 	//@Query("from Restaurante where nome like %:nome% and cozinha.id = :cozinha")
 	List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinha);

@@ -5,6 +5,7 @@ import static com.algaworks.algafood.infrastructure.repository.spec.RestauranteS
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,5 +51,13 @@ public class TesteController {
 		return restauranteRepository.findComFreteGratis(nome);
 		}
 	  
-	  
+	@GetMapping("/restaurantes/primeiro")
+	public Optional<Restaurante>restaurantePrimeiro(){
+		return restauranteRepository.buscarPrimeiro();
+		}
+	
+	@GetMapping("/cozinhas/primeiro")
+	public Optional<Cozinha>cozinhaPrimeiro(){
+		return cozinhaRepository.buscarPrimeiro();
+		}
 }
