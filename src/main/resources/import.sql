@@ -22,3 +22,5 @@ insert into cidade (nome, estado_id) values ('Paraty', 2)
 
 insert into cidade (nome) values ('Belo Horizonte')
 insert into cidade (nome) values ('Rio Quente')
+
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1,1), (1,2), (2,1)
