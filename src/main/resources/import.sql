@@ -25,3 +25,7 @@ insert into cidade (nome) values ('Belo Horizonte')
 insert into cidade (nome) values ('Rio Quente')
 
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1,1), (1,2), (2,1)
+
+insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Coca-cola', '350ml', 5.00, true, 1)
+insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Pizza', 'Mussarela', 5.00, true, 2)
+insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Hamburguer', 'Carne Bovina', 5.00, true, 1)
