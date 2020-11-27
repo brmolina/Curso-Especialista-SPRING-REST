@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
@@ -28,8 +29,10 @@ public class CadastroCozinhaService {
 		cozinhaRepository.deleteById(cozinhaId);
 		}
 		catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(String.format("Cozinha de código %d não encontrada",
-					cozinhaId));
+			
+			  throw new EntidadeNaoEncontradaException(String.
+			  format("Cozinha de código %d não encontrada", cozinhaId));
+			 
 		}
 		catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(String.format("Cozinha de código %d não pode ser removida pois"
