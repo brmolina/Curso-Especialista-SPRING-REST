@@ -5,11 +5,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND/* , reason = "Entidade não encontrada" */)
-public abstract class EntidadeNaoEncontradaException extends NegocioException {
+public class EstadoNaoEncontradoException extends EntidadeNaoEncontradaException {
 
 	private static final long serialVersionUID = 1L;
 
-	public EntidadeNaoEncontradaException(String mensagem) {
+	public EstadoNaoEncontradoException(String mensagem) {
 		super(mensagem);
+	}
+	
+	public EstadoNaoEncontradoException(Long estadoId) {
+		this(String.format("Não existe um cadastro de Estado com código %d", estadoId));
 	}
 }

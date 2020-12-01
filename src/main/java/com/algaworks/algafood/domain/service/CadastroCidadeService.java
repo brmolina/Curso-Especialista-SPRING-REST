@@ -7,8 +7,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Estado;
@@ -29,7 +31,6 @@ public class CadastroCidadeService {
 	EstadoRepository estadoRepository;
 	
 	public Cidade salvar(Cidade cidade) {
-		
 		Estado estado = buscarOuFalharEstado(cidade);
 		
 		return cidadeRepository.save(cidade);
@@ -50,14 +51,14 @@ public class CadastroCidadeService {
 	
 	public Cidade buscarOuFalhar(Long cidadeId) {
 		return  cidadeRepository.findById(cidadeId)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+				.orElseThrow(() -> new CidadeNaoEncontradaException(
 						String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId)));
 	}
 	
 	public Estado buscarOuFalharEstado(Cidade cidade) {
 		Long estadoId = cidade.getEstado().getId();
 		return estadoRepository.findById(estadoId)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+				.orElseThrow(() -> new NegocioException(
 						String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
 	}
 	
