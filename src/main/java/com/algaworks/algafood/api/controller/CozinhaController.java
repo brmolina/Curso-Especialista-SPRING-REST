@@ -43,22 +43,9 @@ public class CozinhaController {
 		return cozinhaRepository.findAll();
 	}
 	
-	//@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	//public CozinhasXmlWrapper listarXml(){
-	//	return new CozinhasXmlWrapper(cozinhaRepository.listar());
-	//}
-	
-	//@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping("/{cozinhaId}")
-	public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
-		Optional<Cozinha> cozinha =  cozinhaRepository.findById(cozinhaId);
-		
-		if(cozinha.isPresent()) {
-		return ResponseEntity.ok(cozinha.get());
-		}
-		
-	//	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		return ResponseEntity.notFound().build();
+	public Cozinha buscar(@PathVariable Long cozinhaId) {
+		return  cadastroCozinha.buscarOuFalhar(cozinhaId);
 	}
 	
 	@PostMapping
@@ -68,17 +55,12 @@ public class CozinhaController {
 	}
 	
 	@PutMapping("/{cozinhaId}")
-	public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha){
-		Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId)
-;
-		if(cozinhaAtual.isPresent()) {
-	//		cozinhaAtual.setNome(cozinha.getNome());
-			BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
+	public Cozinha atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha){
+		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 		
-			Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
-			return ResponseEntity.ok(cozinhaSalva);
-		}
-		return ResponseEntity.notFound().build();
+			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+		
+			return cadastroCozinha.salvar(cozinhaAtual);
 	}
 	
 	/*
