@@ -26,6 +26,7 @@ import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cozinha;
 
 @RestController
@@ -51,7 +52,12 @@ public class CozinhaController {
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public Cozinha adicionar(@RequestBody Cozinha cozinha) {
+		try {
 		return cadastroCozinha.salvar(cozinha);
+		}
+		catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	@PutMapping("/{cozinhaId}")
@@ -59,8 +65,12 @@ public class CozinhaController {
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 		
 			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-		
+		try {
 			return cadastroCozinha.salvar(cozinhaAtual);
+		}
+		catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 	
 	
