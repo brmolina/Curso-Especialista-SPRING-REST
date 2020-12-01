@@ -63,21 +63,6 @@ public class CozinhaController {
 			return cadastroCozinha.salvar(cozinhaAtual);
 	}
 	
-	/*
-	 * @DeleteMapping("/{cozinhaId}") public ResponseEntity<?> excluir(@PathVariable
-	 * Long cozinhaId){
-	 * 
-	 * try {
-	 * 
-	 * cadastroCozinha.excluir(cozinhaId); return
-	 * ResponseEntity.noContent().build();
-	 * 
-	 * } catch (EntidadeNaoEncontradaException e) { return
-	 * ResponseEntity.notFound().build();
-	 * 
-	 * } catch (EntidadeEmUsoException e) { return
-	 * ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage()); } }
-	 */
 	
 	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

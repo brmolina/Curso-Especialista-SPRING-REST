@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
@@ -17,6 +19,8 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 @Service
 public class CadastroRestauranteService {
 
+	private static final String MSG_RESTAURANTE_NAO_ENCONTRADO = "Restaurante com id %d não encontrado";
+
 	@Autowired
 	RestauranteRepository restauranteRepository;
 	
@@ -24,11 +28,7 @@ public class CadastroRestauranteService {
 	CozinhaRepository cozinhaRepository;
 	
 	public Restaurante salvar(Restaurante restaurante) {
-		Long cozinhaId = restaurante.getCozinha().getId();
-		
-		Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
-			.orElseThrow(() -> new EntidadeNaoEncontradaException(
-					String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
+		Cozinha cozinha = buscarOuFalharCozinha(restaurante);
 		
 		restaurante.setCozinha(cozinha);
 		
@@ -36,12 +36,28 @@ public class CadastroRestauranteService {
 	}
 	
 	public void excluir(Long restauranteId) {
-		Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
-		
-		if(!restaurante.isPresent()) {
-			throw new EntidadeNaoEncontradaException(String.format("Restaurante com id %d não encontrado", restauranteId));
-		}
+		Restaurante restaurante = buscarOuFalhar(restauranteId);
+		try {
 		restauranteRepository.deleteById(restauranteId);
+		} catch (DataIntegrityViolationException e) {
+			throw new EntidadeEmUsoException(
+					String.format("Restaurante de id %d não pode ser excluido pois está em uso", restauranteId));
+		}
 		
+	}
+	
+	public Restaurante buscarOuFalhar (Long restauranteId) {
+		return restauranteRepository.findById(restauranteId)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+						String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId)));
+		
+	}
+	
+	public Cozinha buscarOuFalharCozinha(Restaurante restaurante) {
+		Long cozinhaId = restaurante.getCozinha().getId();
+		
+		return cozinhaRepository.findById(cozinhaId)
+			.orElseThrow(() -> new EntidadeNaoEncontradaException(
+					String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
 	}
 }
