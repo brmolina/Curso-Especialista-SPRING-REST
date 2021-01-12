@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EstadoEmUsoException;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
@@ -17,6 +16,7 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 public class CadastroEstadoService {
 	
 	private static final String MSG_ESTADO_NAO_ENCONTRADO = "Estado de id %d não encontrado";
+	private static final String MSG_ESTADO_EM_USO = "Estado em uso";
 	
 	@Autowired
 	EstadoRepository estadoRepository;
@@ -35,8 +35,8 @@ public class CadastroEstadoService {
 		 }
 	 
 	 catch (DataIntegrityViolationException e) {
-			throw new EstadoEmUsoException(estadoId);
-		}
+			throw new EntidadeEmUsoException(String.format(MSG_ESTADO_EM_USO, estadoId));
+			}
 	}
 	
 	public Estado buscarOuFalhar(Long estadoId) {
