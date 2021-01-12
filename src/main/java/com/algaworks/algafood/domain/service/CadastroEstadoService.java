@@ -16,6 +16,8 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 @Service
 public class CadastroEstadoService {
 	
+	private static final String MSG_ESTADO_NAO_ENCONTRADO = "Estado de id %d não encontrado";
+	
 	@Autowired
 	EstadoRepository estadoRepository;
 	
@@ -39,7 +41,8 @@ public class CadastroEstadoService {
 	
 	public Estado buscarOuFalhar(Long estadoId) {
 		return  estadoRepository.findById(estadoId)
-				.orElseThrow(() -> new EstadoNaoEncontradoException(estadoId));
+				.orElseThrow(() -> new EstadoNaoEncontradoException(
+						String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
 	
 	}
 }
