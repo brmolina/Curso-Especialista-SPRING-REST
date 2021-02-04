@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import com.algaworks.algafood.domain.repository.CustomJpaRepository;
 
-import lombok.var;
 
 public class CustomJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
 			implements CustomJpaRepository<T, ID>{
