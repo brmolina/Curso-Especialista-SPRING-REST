@@ -28,12 +28,10 @@ public class CadastroCozinhaIT {
 	
 	@LocalServerPort
 	private int port;
-	
-	@Autowired
-	private CadastroCozinhaService cadastroCozinha;
 
 		@Test
 		public void deveRetornarStatus200_QuandoConsultarCozinha() {
+			RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 			given()
 				.basePath("/cozinhas")
 				.port(port)
